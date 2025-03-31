@@ -51,5 +51,31 @@ namespace Aplicaciones_Web.Clases
                 return ex.Message;
             }
         }
+        public string MOdificarActivo(int Codigo, bool Activo) 
+        {
+            try
+            {
+                TIpoPRoducto tipoProd = Consultar(Codigo);
+                if (tipoProd == null)
+                {
+                    return "El tipo de producto no se encuentra en la base de datos";
+                }
+                tipoProd.Activo = Activo;
+                dbSuper.SaveChanges();
+                if (Activo) 
+                {
+                    return "Se activó el tipo de producto ";
+                }
+                else 
+                {
+                    return "Se inactivó el tipo de producto ";
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }
