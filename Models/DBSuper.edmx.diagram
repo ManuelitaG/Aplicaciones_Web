@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c44a0ffa14b342418f821dd70be48fb0" Name="Diagram1">
+        <EntityTypeShape EntityType="SuperMercadoModel.CARGo" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.CIUDad" Width="1.5" PointX="1.5" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.CLIEnte" Width="1.5" PointX="3" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.COntactoPRoveedor" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.DEPArtamento" Width="1.5" PointX="1.5" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.DEtalleDEvolucion" Width="1.5" PointX="7.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.DEtalleFActura" Width="1.5" PointX="10.5" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.DEtalleFacturaCompra" Width="1.5" PointX="7.5" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.DEVOlucion" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.EMPLeado" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.EMpleadoCArgo" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.FACTura" Width="1.5" PointX="8.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.FActuraCOmpra" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.NOtaCRedito" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.PAI" Width="1.5" PointX="1.5" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.Perfil" Width="1.5" PointX="3" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.PRODucto" Width="1.5" PointX="5.25" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.PRoductoPRoveedor" Width="1.5" PointX="7.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.PROVeedor" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.SUCUrsal" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.SUPErmercado" Width="1.5" PointX="1.5" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.sysdiagram" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.TELEfono" Width="1.5" PointX="5.25" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.TIpoPRoducto" Width="1.5" PointX="3" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.TIpoTElefono" Width="1.5" PointX="3" PointY="38.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.Usuario" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SuperMercadoModel.Usuario_Perfil" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <AssociationConnector Association="SuperMercadoModel.FKEmpleadoCArgo" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKCucursalCiudad" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKDepartamento" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKDevolucionCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKFacturaCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKTelefonoCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_COntactoPRoveedoreedor" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKrtamento" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_DEtalleDEvolucionlucion" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_DEtalleFActuraucto" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_DEtalleFActuraura" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_DEtalleFacturaCompraucto" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_DEtalleFacturaComprauraCOmpra" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKDevollucionEmpleadoCArgo" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_EMpleadoCArgo_EMPLeado" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_Usuario_EMPLeado" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKEmpleadoCArgoSucursal" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKFacturaCOmpraEmpleadoCArgo" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKFacturaEmpleadoCArgo" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKFacturaCOmpraProveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_Usuario_Perfil_Perfil" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKProducto_TIpoPRoducto" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKProductoPRoveedoructo" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKuctoPRoveedoreedor" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKSucursalSupermercado" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FKTelefono_TIpoTElefono" ManuallyRouted="false" />
+        <AssociationConnector Association="SuperMercadoModel.FK_Usuario_Perfil_Usuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SuperMercadoModel.FotosEmpleado" Width="1.5" PointX="3" PointY="41.75" />
+        <EntityTypeShape EntityType="SuperMercadoModel.ImagenesProducto" Width="1.5" PointX="7.5" PointY="27.75" />
+        <AssociationConnector Association="SuperMercadoModel.FK_FotosEmpleados_EMPLeado" />
+        <AssociationConnector Association="SuperMercadoModel.FK_ImagenesProducto_PRODucto" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
