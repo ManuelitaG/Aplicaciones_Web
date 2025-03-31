@@ -26,9 +26,9 @@ namespace Aplicaciones_Web.Models
         public string DocumentoProveedor { get; set; }
         public System.DateTime Fecha { get; set; }
         public System.DateTime FechaPago { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         [JsonIgnore]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]  
         public virtual ICollection<DEtalleFacturaCompra> DEtalleFacturaCompras { get; set; }
         [JsonIgnore]
         public virtual EMpleadoCArgo EMpleadoCArgo { get; set; }

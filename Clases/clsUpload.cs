@@ -27,6 +27,7 @@ namespace Aplicaciones_Web.Clases
 
             try
             {
+                //Lee el contenido de los archivos
                 await request.Content.ReadAsMultipartAsync(provider);
                 if (provider.FileData.Count > 0)
                 {   
@@ -52,7 +53,7 @@ namespace Aplicaciones_Web.Clases
                         File.Move(file.LocalFileName, Path.Combine(root, fileName)); // lo renombra
                     }
                     //Proceso de gestión en la base de datos
-                    string RptaBD = ProcesadorBD();
+                    string RptaBD = ProcesarBD();
                     // Termina el ciclo y se muestra un mensaje de éxito
                     return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se cargaron los archivos en el servidor"+ RptaBD);
                 }
@@ -66,12 +67,13 @@ namespace Aplicaciones_Web.Clases
                 return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        private string ProcesadorBD() 
+        private string ProcesarBD() 
         {
             switch (Proceso.ToUpper()) 
             {
                 case "PRODUCTO":
                     clsProducto producto = new clsProducto();
+                    
                     return producto.GrabarImagenProducto(Convert.ToInt32(Datos), Archivos);
                     
                 break;

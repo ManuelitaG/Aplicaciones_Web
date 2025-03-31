@@ -9,6 +9,7 @@
 
 namespace Aplicaciones_Web.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -26,10 +27,14 @@ namespace Aplicaciones_Web.Models
         public string Telefono { get; set; }
         public string NitSupermercado { get; set; }
         public int CodigoCiudad { get; set; }
-    
+
+        [JsonIgnore]
         public virtual CIUDad CIUDad { get; set; }
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EMpleadoCArgo> EMpleadoCArgoes { get; set; }
+
+        [JsonIgnore]
         public virtual SUPErmercado SUPErmercado { get; set; }
     }
 }
