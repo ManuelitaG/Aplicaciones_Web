@@ -17,7 +17,7 @@ namespace Aplicaciones_Web.Clases
 
         public async Task<HttpResponseMessage> GrabarArchivo()
         {
-            
+
             if (!request.Content.IsMimeMultipartContent())
             {
                 return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "No se envió un archivo para procesar");
@@ -27,10 +27,11 @@ namespace Aplicaciones_Web.Clases
 
             try
             {
+                bool Existe = false;
                 //Lee el contenido de los archivos
                 await request.Content.ReadAsMultipartAsync(provider);
                 if (provider.FileData.Count > 0)
-                {   
+                {
                     Archivos = new List<string>();
                     foreach (MultipartFileData file in provider.FileData)
                     {
@@ -47,18 +48,31 @@ namespace Aplicaciones_Web.Clases
                         {
                             //Opciones si un archivo ya existe, no se va a cargar, se va a eliminar el temporal y se devolverá el error
                             File.Delete(Path.Combine(root, file.LocalFileName));
-                            return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "El archivo ya existe");
+                            Existe = true;
+
                         }
-                        Archivos.Add(fileName); //Agrego en una lista el nombre de los archivos que se cargaron
-                        File.Move(file.LocalFileName, Path.Combine(root, fileName)); // lo renombra
+                        else
+                        {
+                            Existe = false;
+                            Archivos.Add(fileName); //Agrego en una lista el nombre de los archivos que se cargaron
+                            File.Move(file.LocalFileName, Path.Combine(root, fileName)); // lo renombra
+                        }
+
                     }
-                    //Proceso de gestión en la base de datos
-                    string RptaBD = ProcesarBD();
-                    // Termina el ciclo y se muestra un mensaje de éxito
-                    return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se cargaron los archivos en el servidor"+ RptaBD);
+                    if (!Existe)
+                    {
+                        //Proceso de gestión en la base de datos
+                        string RptaBD = ProcesarBD();
+                        // Termina el ciclo y se muestra un mensaje de éxito
+                        return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se cargaron los archivos en el servidor" + RptaBD);
+                    }
+                    else 
+                    {
+                        return request.CreateErrorResponse(System.Net.HttpStatusCode.Conflict, "El archivo ya existe");
+                    }
                 }
-                else 
-                { 
+                else
+                {
                     return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "No se envió un archivo para procesar");
                 }
             }
@@ -67,16 +81,16 @@ namespace Aplicaciones_Web.Clases
                 return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        private string ProcesarBD() 
+        private string ProcesarBD()
         {
-            switch (Proceso.ToUpper()) 
+            switch (Proceso.ToUpper())
             {
                 case "PRODUCTO":
                     clsProducto producto = new clsProducto();
-                    
+
                     return producto.GrabarImagenProducto(Convert.ToInt32(Datos), Archivos);
-                    
-                break;
+
+                    break;
 
                 default:
                     return "NO se ha definido el proceso en la base de datos";
