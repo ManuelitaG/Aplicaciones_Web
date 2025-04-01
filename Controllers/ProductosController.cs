@@ -18,6 +18,14 @@ namespace Aplicaciones_Web.Controllers
         //DELETE: Se utiliza para eliminar información de la base de datos
 
         [HttpGet]
+        [Route("ConsultarImagenes")]
+        public IQueryable ConsultarImagenes(int idProducto)
+        {
+            clsProducto Producto = new clsProducto();
+            return Producto.ListarImagenes(idProducto);
+        }
+
+        [HttpGet]
         [Route("ConsultarTodos")]
         public List<PRODucto> ConsultarTodos() 
         {

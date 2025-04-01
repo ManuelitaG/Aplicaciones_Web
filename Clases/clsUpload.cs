@@ -15,7 +15,7 @@ namespace Aplicaciones_Web.Clases
 
         private List<string> Archivos;
 
-        public async Task<HttpResponseMessage> GrabarArchivo()
+        public async Task<HttpResponseMessage> GrabarArchivo(bool Actualizar)
         {
 
             if (!request.Content.IsMimeMultipartContent())
@@ -46,18 +46,34 @@ namespace Aplicaciones_Web.Clases
                         }
                         if (File.Exists(Path.Combine(root, fileName)))
                         {
-                            //Opciones si un archivo ya existe, no se va a cargar, se va a eliminar el temporal y se devolverá el error
-                            File.Delete(Path.Combine(root, file.LocalFileName));
-                            Existe = true;
+                            if (Actualizar)
+                            {
+                                File.Delete(Path.Combine(root, fileName));
+                                //Actualizar el nombre del primer archivo
+                                File.Move(file.LocalFileName, Path.Combine(root, fileName));
+                                return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se actualizó la imagen");
+                            }
+                            else
+                            {
+                                //Opciones si un archivo ya existe, no se va a cargar, se va a eliminar el temporal y se devolverá el error
+                                File.Delete(Path.Combine(root, file.LocalFileName));
+                                Existe = true;
+                            }
 
                         }
                         else
                         {
-                            Existe = false;
-                            Archivos.Add(fileName); //Agrego en una lista el nombre de los archivos que se cargaron
-                            File.Move(file.LocalFileName, Path.Combine(root, fileName)); // lo renombra
+                            if (!Actualizar) 
+                            {
+                                Existe = false;
+                                Archivos.Add(fileName); //Agrego en una lista el nombre de los archivos que se cargaron
+                                File.Move(file.LocalFileName, Path.Combine(root, fileName)); // lo renombra
+                            }
+                            else 
+                            {
+                                return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "El archivo no existe se debe agregar");
+                            }
                         }
-
                     }
                     if (!Existe)
                     {
@@ -66,7 +82,7 @@ namespace Aplicaciones_Web.Clases
                         // Termina el ciclo y se muestra un mensaje de éxito
                         return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se cargaron los archivos en el servidor" + RptaBD);
                     }
-                    else 
+                    else
                     {
                         return request.CreateErrorResponse(System.Net.HttpStatusCode.Conflict, "El archivo ya existe");
                     }
@@ -94,6 +110,34 @@ namespace Aplicaciones_Web.Clases
 
                 default:
                     return "NO se ha definido el proceso en la base de datos";
+            }
+        }
+
+        public HttpResponseMessage DescargarArchivo(string Imagen)
+        {
+            try
+            {
+                string Ruta = HttpContext.Current.Server.MapPath("~/Archivos");
+                string Archivo = Path.Combine(Ruta, Imagen);
+                if (File.Exists(Archivo))
+                {
+                    HttpResponseMessage response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                    var stream = new FileStream(Archivo, FileMode.Open);
+                    response.Content = new StreamContent(stream);
+                    response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                    response.Content.Headers.ContentDisposition.FileName = Imagen;
+                    response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                    return response;
+                }
+                else
+                {
+                    return request.CreateErrorResponse(System.Net.HttpStatusCode.NoContent, "No se encontró el archivo:( ");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
