@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Aplicaciones_Web.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,19 +16,21 @@ namespace Aplicaciones_Web.Clases
         public HttpRequestMessage request { get; set; }
 
         private List<string> Archivos;
+        private SuperMercadoEntities dbSuper = new SuperMercadoEntities();
 
         public async Task<HttpResponseMessage> GrabarArchivo(bool Actualizar)
         {
-
-            if (!request.Content.IsMimeMultipartContent())
-            {
-                return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "No se envió un archivo para procesar");
-            }
-            string root = HttpContext.Current.Server.MapPath("~/Archivos");
-            var provider = new MultipartFormDataStreamProvider(root);
-
             try
             {
+                if (!request.Content.IsMimeMultipartContent())
+                {
+                    return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "No se envió un archivo para procesar");
+                }
+
+                string root = HttpContext.Current.Server.MapPath("~/Archivos");
+                var provider = new MultipartFormDataStreamProvider(root);
+
+
                 bool Existe = false;
                 //Lee el contenido de los archivos
                 await request.Content.ReadAsMultipartAsync(provider);
@@ -63,13 +67,13 @@ namespace Aplicaciones_Web.Clases
                         }
                         else
                         {
-                            if (!Actualizar) 
+                            if (!Actualizar)
                             {
                                 Existe = false;
                                 Archivos.Add(fileName); //Agrego en una lista el nombre de los archivos que se cargaron
                                 File.Move(file.LocalFileName, Path.Combine(root, fileName)); // lo renombra
                             }
-                            else 
+                            else
                             {
                                 return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, "El archivo no existe se debe agregar");
                             }
@@ -103,7 +107,6 @@ namespace Aplicaciones_Web.Clases
             {
                 case "PRODUCTO":
                     clsProducto producto = new clsProducto();
-
                     return producto.GrabarImagenProducto(Convert.ToInt32(Datos), Archivos);
 
                     break;
@@ -140,6 +143,50 @@ namespace Aplicaciones_Web.Clases
                 return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        private string ProcesarBD2()
+        {
+            switch (Proceso.ToUpper())
+            {
+                case "IMAGEN":
+                    
+                    clsProducto producto = new clsProducto();
+
+                    return producto.EliminarImagenProducto(Convert.ToInt32(Datos));
+
+                    break;
+
+                default:
+                    return "NO se ha definido el proceso en la base de datos";
+            }
+        }
+        public HttpResponseMessage EliminarArchivo(HttpRequestMessage request, string Imagen)
+        {
+            try
+            {
+                //string fileName = file.Headers.ContentDisposition.FileName;
+                string Ruta = HttpContext.Current.Server.MapPath("~/Archivos");
+                string Archivo = Path.Combine(Ruta, Imagen);
+                if (File.Exists(Archivo))
+                {
+                    File.Delete(Path.Combine(Ruta, Imagen));
+                    string RptaBD = ProcesarBD2();
+                    return request.CreateResponse(System.Net.HttpStatusCode.OK, "a" + RptaBD);
+                    //return request.CreateResponse(System.Net.HttpStatusCode.OK, "Se Deleta la imagen");
+
+                }
+                else
+                {
+                    return request.CreateErrorResponse(System.Net.HttpStatusCode.NoContent, "No se existe el archivo:( ");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return request.CreateErrorResponse(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
 
     }
 }

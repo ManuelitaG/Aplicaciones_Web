@@ -1,4 +1,5 @@
 ﻿using Aplicaciones_Web.Clases;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -32,6 +33,15 @@ namespace Aplicaciones_Web.Controllers
             clsUpload upload = new clsUpload();
             upload.request = request;
             return await upload.GrabarArchivo(true);
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage EliminarArchivo(string NombreImagen, string Datos, string Proceso) 
+        {
+            clsUpload upload = new clsUpload();
+            upload.Datos = Datos;
+            upload.Proceso = Proceso;
+            return upload.EliminarArchivo(Request, NombreImagen);
         }
 
 

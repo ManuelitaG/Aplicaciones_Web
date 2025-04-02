@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
 namespace Aplicaciones_Web.Clases
 {
@@ -167,6 +168,31 @@ namespace Aplicaciones_Web.Clases
             catch (Exception ex) 
             { 
                 return"Error :( "+ ex.Message;
+            }
+        }
+        public string EliminarImagenProducto(int idImagen)
+        {
+            try
+            {
+                
+                var imagenProducto = dbSuper.ImagenesProductoes.FirstOrDefault(e => e.idImagen == idImagen);
+
+                if(imagenProducto != null) 
+                {
+                    dbSuper.ImagenesProductoes.Remove(imagenProducto);
+                    dbSuper.SaveChanges();
+                    return "Se guardó la información en la base de datos :)";
+                }
+                else 
+                {
+                    return "Error, no está en la base de datos";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return "Error :( " + ex.Message;
             }
         }
         public IQueryable ListarImagenes(int idProducto) 
