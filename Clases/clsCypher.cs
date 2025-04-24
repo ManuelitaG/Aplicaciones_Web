@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Aplicaciones_Web.Clases
 {
-    public class clsCypher
+    public class clsCypher//jjjj
     {
         public string Password { get; set; }
         public string PasswordCifrado { get; set; }
