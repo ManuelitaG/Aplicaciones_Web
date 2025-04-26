@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aplicaciones_Web.Clases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,6 +11,8 @@ namespace Aplicaciones_Web
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de Web API
+            //Habilitar el esquema de autenticación, para la validación del token
+            config.MessageHandlers.Add(new TokenValidationHandler());
 
             // Rutas de Web API
             config.MapHttpAttributeRoutes();
